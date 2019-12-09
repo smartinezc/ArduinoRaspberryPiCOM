@@ -1,12 +1,11 @@
 #include <ArduinoRaspberryPiCOM.h>
 #include <Arduino.h>
-#include <string>
 
-ArduinoRaspberryPiCOM::ArduinoRaspberryPiCOM(int numGruposSensores, int numGruposActuadores)
+ArduinoRaspberryPiCOM::ArduinoRaspberryPiCOM()
 {
-  for(int n=0; n<8; n++)
+  for(int n=0; n<5; n++)
   {
-    for(int j=0; j<10; j++)
+    for(int j=0; j<5; j++)
     {
       sensores[j][n] = "";
       valSenso[j][n][0] = 0;
@@ -19,61 +18,65 @@ ArduinoRaspberryPiCOM::ArduinoRaspberryPiCOM(int numGruposSensores, int numGrupo
   }
 }
 
-void ArduinoRaspberryPiCOM::crearGrupoSensor(string nombreGrupo, int tipoSeñal)
+void ArduinoRaspberryPiCOM::crearGrupoSensor(String nombreGrupo, int tipoSenal)
 {
-  for(int n=0; n<8; n++)
+  bool acabo = false;
+  for(int n=0; n<5 && !acabo; n++)
   {
-    if(sensores[0][n].compare("") == 0)
+    if(sensores[0][n].compareTo("") == 0)
     {
       sensores[0][n] = nombreGrupo;
-      valSenso[0][n][0] = tipoSeñal;
+      valSenso[0][n][0] = tipoSenal;
+      acabo = true;
     }
   }
 }
 
-void ArduinoRaspberryPiCOM::agregarSensor(string nombreSensor, string nombreGrupo, int pinSensor)
+void ArduinoRaspberryPiCOM::agregarSensor(String nombreSensor, String nombreGrupo, int pinSensor)
 {
-  for(int n=0; n<8; n++)
+  bool acabo = false;
+  for(int n=0; n<8 && !acabo; n++)
   {
-    if(sensores[0][n].compare(nombreGrupo) == 0)
+    if(sensores[0][n].compareTo(nombreGrupo) == 0)
     {
-      for(int j=0; j<10; j++)
+      for(int j=0; j<10 && !acabo; j++)
       {
-        if(sensores[j][n].compare("") == 0)
+        if(sensores[j][n].compareTo("") == 0)
         {
           sensores[j][n] = nombreSensor;
           valSenso[j][n][1] = pinSensor;
           pinMode(pinSensor, INPUT);
+          acabo = true;
         }
       }
     }
   }
 }
 
-void ArduinoRaspberryPiCOM::crearGrupoActuador(string nombreGrupo, int tipoSeñal)
+void ArduinoRaspberryPiCOM::crearGrupoActuador(String nombreGrupo, int tipoSenal)
 {
   for(int n=0; n<8; n++)
   {
-    if(actuador[0][n].compare("") == 0)
+    if(actuador[0][n].compareTo("") == 0)
     {
       actuador[0][n] = nombreGrupo;
-      valActua[0][n][0] = tipoSeñal;
+      valActua[0][n][0] = tipoSenal;
     }
   }
 }
 
-void ArduinoRaspberryPiCOM::agregarActuador(string nombreActuador, string nombreGrupo, int pinActuador)
+void ArduinoRaspberryPiCOM::agregarActuador(String nombreActuador, String nombreGrupo, int pinActuador)
 {
   for(int n=0; n<8; n++)
   {
-    if(actuador[0][n].compare(nombreGrupo) == 0)
+    if(actuador[0][n].compareTo(nombreGrupo) == 0)
     {
       for(int j=0; j<10; j++)
       {
-        if(actuador[j][n].compare("") == 0)
+        if(actuador[j][n].compareTo("") == 0)
         {
-          actuador[j][n] = nombreSensor;
-          valActua[j][n][1] = pinSensor;
+          actuador[j][n] = nombreActuador;
+          valActua[j][n][1] = pinActuador;
           pinMode(pinActuador, OUTPUT);
         }
       }
@@ -85,21 +88,21 @@ void ArduinoRaspberryPiCOM::leerSensores()
 {
   for(int n=0; n<8; n++)
   {
-    if(valSenso[0][n][0] == DIGITAL && sensores[0][n].compare("") != 0)
+    if(valSenso[0][n][0] == DIGITAL && sensores[0][n].compareTo("") != 0)
     {
       for(int j=1; j<10; j++)
       {
-        if(sensores[j][n].compare("") != 0)
+        if(sensores[j][n].compareTo("") != 0)
         {
           valSenso[j][n][0] = digitalRead(valSenso[j][n][1]);
         }
       }
     }
-    else if(valSenso[0][n][0] == ANALOGO && sensores[0][n].compare("") != 0)
+    else if(valSenso[0][n][0] == ANALOGO && sensores[0][n].compareTo("") != 0)
     {
       for(int j=1; j<10; j++)
       {
-        if(sensores[j][n].compare("") != 0)
+        if(sensores[j][n].compareTo("") != 0)
         {
           valSenso[j][n][0] = analogRead(valSenso[j][n][1]);
         }
@@ -108,28 +111,28 @@ void ArduinoRaspberryPiCOM::leerSensores()
   }
 }
 
-string ArduinoRaspberryPiCOM::darJSON()
+String ArduinoRaspberryPiCOM::darJSON()
 {
-  string json = '{"Sensores" : {';
+  String json = "{\"Sensores\" : {";
 
   bool acabo = false;
   for(int n=0; n<8 && !acabo; n++)
   {
-    if(sensores[0][n].compare("") != 0)
+    if(sensores[0][n].compareTo("") != 0)
     {
-      json += '"' + sensores[0][n] + '" : {';
+      json += "\"" + sensores[0][n] + "\" : {";
 
       bool sigGrupo = false;
       for(int j=1; j<10 && !sigGrupo; j++)
       {
-        if(sensores[j][n].compare("") != 0)
+        if(sensores[j][n].compareTo("") != 0)
         {
-          json += '"' + sensores[j][n] + '" : ' + to_string(valSenso[j][n][0]);
+          json += "\"" + sensores[j][n] + "\" : " + ((String) valSenso[j][n][0]);
           if(j + 1 < 10)
           {
-            if(sensores[j+1][n].compare("") != 0)
+            if(sensores[j+1][n].compareTo("") != 0)
             {
-              json += ',';
+              json += ",";
             }
           }
         }
@@ -138,12 +141,12 @@ string ArduinoRaspberryPiCOM::darJSON()
           sigGrupo = true;
         }
       }
-      json += '}';
+      json += "}";
       if(n + 1 < 8)
       {
-        if(sensores[0][n+1].compare("") != 0)
+        if(sensores[0][n+1].compareTo("") != 0)
         {
-          json += ',';
+          json += ",";
         }
       }
     }
@@ -152,7 +155,7 @@ string ArduinoRaspberryPiCOM::darJSON()
       acabo = true;
     }
   }
-  json += '}}';
+  json += "}}";
 
   return json;
 }

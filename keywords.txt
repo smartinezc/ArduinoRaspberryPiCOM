@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map ArduinoRaspberryPiCOM
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ArduinoRaspberryPiCOM	KEYWORD1	ArduinoRaspberryPiCOM
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+crearGrupoSensor	KEYWORD2 ArduinoRaspberryPiCOM
+agregarSensor	KEYWORD2 ArduinoRaspberryPiCOM
+crearGrupoActuador	KEYWORD2
+agregarActuador	KEYWORD2
+leerSensores	KEYWORD2
+darJSON	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+DIGITAL	LITERAL1
+ANALOGO	LITERAL1
+PWM LITERAL1
