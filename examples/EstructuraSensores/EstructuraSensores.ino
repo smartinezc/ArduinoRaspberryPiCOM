@@ -22,12 +22,13 @@ int pinSenT1 = A0;    // El pin A0 será usado por Sensor de Temperatura 1
 
 // Para evitar el uso de la función delay() se empleará las siguientes variables
 unsigned long prevTime = 0;  //Guarda el tiempo de la última lectura de sensores
-long intervalo = 1000;       //Define en milisegundos el tiempo de lectura de sensores
+long intervalo = 1000;       //Define en milisegundos el tiempo de espera para 
+                             // la lectura de sensores
 
 // En el setup se añadirán los sensores a la estructura arCOM
 void setup() {
-  // Inicia el canal Serial para la comunicacion con el Raspberry Pi a 9600 bauds
-  Serial.begin(9600);
+  // Inicia el canal Serial para la comunicacion con el Raspberry Pi a 2400 bauds
+  Serial.begin(2400);
   
   // Crear un grupo de sensores para agrupar los similares. 
   // Parámetros: String:NombreGrupo, int:TipoSeñal(DIGITAL, ANALOGO)

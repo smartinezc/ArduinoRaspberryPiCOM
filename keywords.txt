@@ -13,10 +13,11 @@ ArduinoRaspberryPiCOM	KEYWORD1	ArduinoRaspberryPiCOM
 #######################################
 crearGrupoSensor	KEYWORD2 ArduinoRaspberryPiCOM
 agregarSensor	KEYWORD2 ArduinoRaspberryPiCOM
-crearGrupoActuador	KEYWORD2
-agregarActuador	KEYWORD2
-leerSensores	KEYWORD2
-darJSON	KEYWORD2
+crearGrupoActuador	KEYWORD2 ArduinoRaspberryPiCOM
+agregarActuador	KEYWORD2 ArduinoRaspberryPiCOM
+leerSensores	KEYWORD2 ArduinoRaspberryPiCOM
+actualizarActuadores	KEYWORD2 ArduinoRaspberryPiCOM
+darJSON	KEYWORD2 ArduinoRaspberryPiCOM
 
 
 #######################################
@@ -24,4 +25,4 @@ darJSON	KEYWORD2
 #######################################
 DIGITAL	LITERAL1
 ANALOGO	LITERAL1
-PWM LITERAL1
+PWM	LITERAL1

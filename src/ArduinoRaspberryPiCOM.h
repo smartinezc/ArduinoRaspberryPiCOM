@@ -24,7 +24,10 @@ public:
   void agregarActuador(String nombreActuador, String nombreGrupo, int pinActuador);
 
   void leerSensores();
+  void actualizarActuadores();
+
   String darJSON();
+  int leerJSON(String json, String nombreABuscar);
 };
 
 #endif
