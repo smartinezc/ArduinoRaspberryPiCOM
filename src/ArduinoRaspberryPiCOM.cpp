@@ -3,9 +3,9 @@
 
 ArduinoRaspberryPiCOM::ArduinoRaspberryPiCOM()
 {
-  for(int n=0; n<5; n++)
+  for(int n=0; n<MAX_GRUPOS; n++)
   {
-    for(int j=0; j<5; j++)
+    for(int j=0; j<MAX_POR_GRUPO; j++)
     {
       sensores[j][n] = "";
       valSenso[j][n][0] = 0;
@@ -21,7 +21,7 @@ ArduinoRaspberryPiCOM::ArduinoRaspberryPiCOM()
 void ArduinoRaspberryPiCOM::crearGrupoSensor(String nombreGrupo, int tipoSenal)
 {
   bool acabo = false;
-  for(int n=0; n<5 && !acabo; n++)
+  for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(sensores[0][n].compareTo("") == 0)
     {
@@ -35,11 +35,11 @@ void ArduinoRaspberryPiCOM::crearGrupoSensor(String nombreGrupo, int tipoSenal)
 void ArduinoRaspberryPiCOM::agregarSensor(String nombreSensor, String nombreGrupo, int pinSensor)
 {
   bool acabo = false;
-  for(int n=0; n<5 && !acabo; n++)
+  for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(sensores[0][n].compareTo(nombreGrupo) == 0)
     {
-      for(int j=0; j<5 && !acabo; j++)
+      for(int j=0; j<MAX_POR_GRUPO && !acabo; j++)
       {
         if(sensores[j][n].compareTo("") == 0)
         {
@@ -56,7 +56,7 @@ void ArduinoRaspberryPiCOM::agregarSensor(String nombreSensor, String nombreGrup
 void ArduinoRaspberryPiCOM::crearGrupoActuador(String nombreGrupo, int tipoSenal)
 {
   bool acabo = false;
-  for(int n=0; n<5 && !acabo; n++)
+  for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(actuador[0][n].compareTo("") == 0)
     {
@@ -70,11 +70,11 @@ void ArduinoRaspberryPiCOM::crearGrupoActuador(String nombreGrupo, int tipoSenal
 void ArduinoRaspberryPiCOM::agregarActuador(String nombreActuador, String nombreGrupo, int pinActuador)
 {
   bool acabo = false;
-  for(int n=0; n<5 && !acabo; n++)
+  for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(actuador[0][n].compareTo(nombreGrupo) == 0)
     {
-      for(int j=0; j<5 && !acabo; j++)
+      for(int j=0; j<MAX_POR_GRUPO && !acabo; j++)
       {
         if(actuador[j][n].compareTo("") == 0)
         {
@@ -90,11 +90,11 @@ void ArduinoRaspberryPiCOM::agregarActuador(String nombreActuador, String nombre
 
 void ArduinoRaspberryPiCOM::leerSensores()
 {
-  for(int n=0; n<5; n++)
+  for(int n=0; n<MAX_GRUPOS; n++)
   {
     if(valSenso[0][n][0] == DIGITAL && sensores[0][n].compareTo("") != 0)
     {
-      for(int j=1; j<5; j++)
+      for(int j=1; j<MAX_POR_GRUPO; j++)
       {
         if(sensores[j][n].compareTo("") != 0)
         {
@@ -104,7 +104,7 @@ void ArduinoRaspberryPiCOM::leerSensores()
     }
     else if(valSenso[0][n][0] == ANALOGO && sensores[0][n].compareTo("") != 0)
     {
-      for(int j=1; j<5; j++)
+      for(int j=1; j<MAX_POR_GRUPO; j++)
       {
         if(sensores[j][n].compareTo("") != 0)
         {
@@ -121,11 +121,11 @@ void ArduinoRaspberryPiCOM::actualizarActuadores()
   {
     String json = Serial.readString();
 
-    for(int n=0; n<5; n++)
+    for(int n=0; n<MAX_GRUPOS; n++)
     {
       if(valActua[0][n][0] == DIGITAL && actuador[0][n].compareTo("") != 0)
       {
-        for(int j=1; j<5; j++)
+        for(int j=1; j<MAX_POR_GRUPO; j++)
         {
           if(actuador[j][n].compareTo("") != 0)
           {
@@ -136,7 +136,7 @@ void ArduinoRaspberryPiCOM::actualizarActuadores()
       }
       else if(valActua[0][n][0] == PWM && actuador[0][n].compareTo("") != 0)
       {
-        for(int j=1; j<5; j++)
+        for(int j=1; j<MAX_POR_GRUPO; j++)
         {
           if(actuador[j][n].compareTo("") != 0)
           {
@@ -197,7 +197,7 @@ String ArduinoRaspberryPiCOM::darJSON()
   json += "},\"Actuadores\" : {";
 
   bool acabo = false;
-  for(int n=0; n<5 && !acabo; n++)
+  for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(actuador[0][n].compareTo("") != 0)
     {

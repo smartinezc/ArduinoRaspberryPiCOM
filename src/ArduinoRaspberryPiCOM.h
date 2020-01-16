@@ -7,10 +7,13 @@ class ArduinoRaspberryPiCOM
 {
 
 private:
-  String sensores[5][5];
-  int valSenso[5][5][2];
-  String actuador[5][5];
-  int valActua[5][5][2];
+  int MAX_GRUPOS = 5;
+  int MAX_POR_GRUPO = 5;
+
+  String sensores[MAX_GRUPOS][MAX_POR_GRUPO];
+  int valSenso[MAX_GRUPOS][MAX_POR_GRUPO][2];
+  String actuador[MAX_GRUPOS][MAX_POR_GRUPO];
+  int valActua[MAX_GRUPOS][MAX_POR_GRUPO][2];
 
 public:
   int DIGITAL = 44;

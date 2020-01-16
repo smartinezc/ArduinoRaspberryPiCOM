@@ -15,11 +15,11 @@
 ArduinoRaspberryPiCOM arCOM = ArduinoRaspberryPiCOM();
 
 // Definir los pines donde estarán conectados los actuadores
-int pinBombaAgua = 2;     // El pin 2 será usado para controlar la Bomba de Agua
-int pinBombaVacio = 3;    // El pin 3 será usado para controlar la Bomba de Vacío
+int pinBombaAgua = 2;   // El pin 2 será usado para controlar la Bomba de Agua
+int pinBombaVacio = 3;  // El pin 3 será usado para controlar la Bomba de Vacío
 
-int pinEncendido = 8;     // El pin 8 será usado por el LED de Encendido
-int pinAlarma = 9;        // El pin 9 (Pin PWM) será usado por el LED de Alarma - señal PWM
+int pinEncendido = 9;   // El pin 9 (Pin PWM) será usado por el LED de Encendido - señal PWM
+int pinAlarma = 10;     // El pin 10 (Pin PWM) será usado por el LED de Alarma - señal PWM
 
 // Para evitar el uso de la función delay() se empleará las siguientes variables
 unsigned long prevTime = 0;  //Guarda el tiempo de la última lectura del JSON 
@@ -34,8 +34,8 @@ void setup() {
   
   // Crear un grupo de actuadores para agrupar los similares. 
   // Parámetros: String:NombreGrupo, int:TipoSeñal(DIGITAL, PWM)
-  arCOM.crearGrupoActuador("Bombas", arCOM.PWM);
-  arCOM.crearGrupoActuador("LEDs", arCOM.DIGITAL);
+  arCOM.crearGrupoActuador("Bombas", arCOM.DIGITAL);
+  arCOM.crearGrupoActuador("LEDs", arCOM.PWM);
 
   // Añadir a cada grupo sus actuadores, especificando el pin al que se conectan
   // Parámetros: String:NombreActuador, String:NombreGrupo, int:pinActuador
@@ -48,7 +48,7 @@ void setup() {
 }
 
 void loop() {
-
+  
   // Durante la ejecución del programa se leerá el JSON enviado por el Raspberry Pi 
   // a una tasa de muestreo deseada (variable intervalo definida al inicio) o bajo 
   // la condición deseada
