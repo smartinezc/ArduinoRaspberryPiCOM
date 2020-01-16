@@ -196,7 +196,7 @@ String ArduinoRaspberryPiCOM::darJSON()
 
   json += "},\"Actuadores\" : {";
 
-  bool acabo = false;
+  acabo = false;
   for(int n=0; n<MAX_GRUPOS && !acabo; n++)
   {
     if(actuador[0][n].compareTo("") != 0)

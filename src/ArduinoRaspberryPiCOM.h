@@ -7,8 +7,8 @@ class ArduinoRaspberryPiCOM
 {
 
 private:
-  int MAX_GRUPOS = 5;
-  int MAX_POR_GRUPO = 5;
+  static const int MAX_GRUPOS = 5;
+  static const int MAX_POR_GRUPO = 5;
 
   String sensores[MAX_GRUPOS][MAX_POR_GRUPO];
   int valSenso[MAX_GRUPOS][MAX_POR_GRUPO][2];
