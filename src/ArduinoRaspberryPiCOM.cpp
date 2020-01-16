@@ -193,8 +193,51 @@ String ArduinoRaspberryPiCOM::darJSON()
       acabo = true;
     }
   }
-  json += "}}";
 
+  json += "},\"Actuadores\" : {";
+
+  bool acabo = false;
+  for(int n=0; n<5 && !acabo; n++)
+  {
+    if(actuador[0][n].compareTo("") != 0)
+    {
+      json += "\"" + actuador[0][n] + "\" : {";
+
+      bool sigGrupo = false;
+      for(int j=1; j<10 && !sigGrupo; j++)
+      {
+        if(actuador[j][n].compareTo("") != 0)
+        {
+          json += "\"" + actuador[j][n] + "\" : " + ((String) valActua[j][n][0]);
+          if(j + 1 < 10)
+          {
+            if(actuador[j+1][n].compareTo("") != 0)
+            {
+              json += ",";
+            }
+          }
+        }
+        else
+        {
+          sigGrupo = true;
+        }
+      }
+      json += "}";
+      if(n + 1 < 8)
+      {
+        if(actuador[0][n+1].compareTo("") != 0)
+        {
+          json += ",";
+        }
+      }
+    }
+    else
+    {
+      acabo = true;
+    }
+  }
+
+  json += "}}";
   return json;
 }
 
